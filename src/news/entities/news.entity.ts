@@ -1,19 +1,40 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity({ name: 'news' })
-export class News {
+@ObjectType()
+@Entity('newstable')
+export class NewsEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Field()
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Field()
   @Column({ unique: true })
   title: string;
 
-  @Column({type: "text", nullable: true})
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({type: "text", nullable: true})
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   text: string;
 
-  @Column({type: "text", nullable: true})
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   img: string;
 }
