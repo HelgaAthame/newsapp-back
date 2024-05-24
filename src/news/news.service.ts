@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { NewsEntity } from './entities/news.entity';
 import { Repository } from 'typeorm';
 import { CreateNewsInput } from './inputs/create-news.input';
+import { UpdateNewsInput } from './inputs/update-news.input';
 
 @Injectable()
 export class NewsService {
@@ -11,13 +12,30 @@ export class NewsService {
     private readonly newsRepository: Repository<NewsEntity>,
   ) {}
 
-  async createNews(newsInput: CreateNewsInput): Promise<NewsEntity> {
-    return await this.newsRepository.save({ ...newsInput });
+  async createNews(createNewsInput: CreateNewsInput): Promise<NewsEntity> {
+    return await this.newsRepository.save({ ...createNewsInput });
   }
 
   async getOneNews(id: number): Promise<NewsEntity> {
     return await this.newsRepository.findOne({
-        where: { id },
+      where: { id },
     });
+  }
+
+  async getAllNews(): Promise<NewsEntity[]> {
+    return await this.newsRepository.find();
+  }
+
+  async removeNews(id: number): Promise<number> {
+    await this.newsRepository.delete({ id });
+    return id;
+  }
+
+  async updateNews(updateNewsInput: UpdateNewsInput): Promise<NewsEntity> {
+    await this.newsRepository.update(
+      { id: updateNewsInput.id },
+      { ...updateNewsInput },
+    );
+    return await this.getOneNews(updateNewsInput.id);
   }
 }
