@@ -26,7 +26,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
         database: configService.get('DB_NAME'),
         entities: [__dirname + 'dist/**/*.entity{.js,.ts}'],
         // do NOT use syncronize: true in real projeacts
-        syncronize: true,
+        synchronize: true,
         autoLoadEntities: true,
         logging: true,
       }),

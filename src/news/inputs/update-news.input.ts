@@ -5,7 +5,7 @@ export class UpdateNewsInput {
   @Field(() => ID)
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   title: string;
 
   @Field({ nullable: true })

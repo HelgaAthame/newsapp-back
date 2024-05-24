@@ -40,5 +40,5 @@ input UpdateNewsInput {
   id: ID!
   img: String
   text: String
-  title: String!
+  title: String
 }
