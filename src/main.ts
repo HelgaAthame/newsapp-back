@@ -7,15 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
   const port = config.get<number>('PORT');
-  const host = config.get('HOST');
   const corsOptions: CorsOptions = {
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true, // Allow cookies to be sent
   };
   app.enableCors(corsOptions);
-  await app.listen(port || 3000, host || '0.0.0.0', () => {
-    console.log(`Server listens on port ${port}`);
+  await app.listen(port || 3000, '0.0.0.0', () => {
+    console.log(`Server listens on port=${port || 3000}`);
   });
 }
 bootstrap();
