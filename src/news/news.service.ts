@@ -26,9 +26,12 @@ export class NewsService {
     return await this.newsRepository.find();
   }
 
-  async removeNews(id: number): Promise<number> {
+  async removeNews(id: number): Promise<NewsEntity> {
+    const myArticle = await this.newsRepository.findOne({
+      where: { id },
+    })
     await this.newsRepository.delete({ id });
-    return id;
+    return myArticle;
   }
 
   async updateNews(updateNewsInput: UpdateNewsInput): Promise<NewsEntity> {
