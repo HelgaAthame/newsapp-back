@@ -29,7 +29,7 @@ export class NewsService {
   async removeNews(id: number): Promise<NewsEntity> {
     const myArticle = await this.newsRepository.findOne({
       where: { id },
-    })
+    });
     await this.newsRepository.delete({ id });
     return myArticle;
   }
