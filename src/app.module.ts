@@ -18,17 +18,23 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
+        // type: 'postgres',
+        // host: configService.get('DB_HOST'),
+        // port: +configService.get('DB_PORT'),
+        // username: configService.get('DB_USERNAME'),
+        // password: configService.get('DB_PASSWORD'),
+        // database: configService.get('DB_NAME'),
+        // entities: [__dirname + 'dist/**/*.entity{.js,.ts}'],
+        // // do NOT use syncronize: true in real projeacts
+        // synchronize: true,
+        // autoLoadEntities: true,
+        // logging: true,
         type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: +configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
-        entities: [__dirname + 'dist/**/*.entity{.js,.ts}'],
-        // do NOT use syncronize: true in real projeacts
-        synchronize: true,
+        url: configService.get('DATABASE_URL'), // Строка подключения из .env
+        synchronize: true, // Только для разработки!
         autoLoadEntities: true,
         logging: true,
+        ssl: { rejectUnauthorized: false }, // Настройка SSL для Supabase
       }),
     }),
     NewsModule,
